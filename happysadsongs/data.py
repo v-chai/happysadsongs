@@ -1,5 +1,7 @@
 import re
 import string
+import os
+import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
@@ -14,12 +16,22 @@ stop_words = set(stopwords.words('english')) - {
 
 
 def get_training_data():
-    # ADD CODE
-    pass
+    root_path = os.path.dirname(os.path.dirname(__file__))
+    data_path = os.path.join(root_path,'raw_data')
+    df = pd.read_csv(os.path.join(data_path, 'balanced_hsa_dataset.csv'))
+    return df
 
 def get_lyrics_data():
-    # ADD CODE
-    pass
+    root_path = os.path.dirname(os.path.dirname(__file__))
+    data_path = os.path.join(root_path, 'raw_data')
+    df = pd.read_csv(os.path.join(data_path,'labeled_lyrics_cleaned'))
+    return df
+
+def get_test_lyrics():
+    root_path = os.path.dirname(os.path.dirname(__file__))
+    data_path = os.path.join(root_path,'raw_data')
+    df = pd.read_csv(os.path.join(data_path, "hsa_labeled_lyrics.csv"))
+    return df
 
 def clean(text):
     # lowercase
@@ -41,7 +53,6 @@ def clean(text):
 
     return new_text
 
-
 def remove_stopwords(text):
     word_list = [
         word for word in word_tokenize(text) if not word in stop_words
@@ -53,7 +64,6 @@ def lemma_text(text):
     lemmatizer = WordNetLemmatizer()
     lemmatized = [lemmatizer.lemmatize(word) for word in word_tokenize(text)]
     return ' '.join(lemmatized)
-
 
 # Possibly remove single letter words
 def clean_length(text):
