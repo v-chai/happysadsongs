@@ -24,7 +24,7 @@ def get_training_data():
 def get_lyrics_data():
     root_path = os.path.dirname(os.path.dirname(__file__))
     data_path = os.path.join(root_path, 'raw_data')
-    df = pd.read_csv(os.path.join(data_path,'labeled_lyrics_cleaned'))
+    df = pd.read_csv(os.path.join(data_path,'labeled_lyrics_cleaned.csv'))
     return df
 
 def get_test_lyrics():
@@ -33,7 +33,7 @@ def get_test_lyrics():
     df = pd.read_csv(os.path.join(data_path, "hsa_labeled_lyrics.csv"))
     return df
 
-def clean(text):
+def clean(text, rem_punc=False):
     # lowercase
     new_text = text.lower()
 
@@ -44,9 +44,14 @@ def clean(text):
     new_text = re.sub(r'http:\S+', '', new_text)
     new_text = re.sub(r'https:\S+', '', new_text)
 
-    # remove punctuation
-    for punctuation in string.punctuation:
-        new_text = new_text.replace(punctuation, '')
+    # lyrics - specific
+    new_text = new_text.replace('\n\n', '.').replace('\n', ', ').replace(
+        r"\[[^]]*\]",' ')
+
+    # remove punctuation OPTIONAL
+    if rem_punc:
+        for punctuation in string.punctuation:
+            new_text = new_text.replace(punctuation, '')
 
     # remove numbers
     new_text = ''.join(word for word in new_text if not word.isdigit())
