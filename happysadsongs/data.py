@@ -2,30 +2,18 @@ import re
 import string
 import os
 import pandas as pd
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-
-
-# Consider reducing this list further
-stop_words = set(stopwords.words('english')) - {
-    'into', 'against', 'myself', 'doing', 'own', 'above', 'our', 'now', 'up',
-    'down', 'been', 'not', 'no', 'would', 'should', 'again', 'won', 'if',
-    'only', 'yours', 'your', 'you', 'ours', 'here', 'there', 'below', 'before'
-}
-
 
 def get_training_data():
     root_path = os.path.dirname(os.path.dirname(__file__))
     data_path = os.path.join(root_path,'raw_data')
     df = pd.read_csv(os.path.join(data_path, 'balanced_hsa_dataset.csv'))
-    return df
+    return df[['text','word_label']]
 
 def get_lyrics_data():
     root_path = os.path.dirname(os.path.dirname(__file__))
     data_path = os.path.join(root_path, 'raw_data')
     df = pd.read_csv(os.path.join(data_path,'labeled_lyrics_cleaned.csv'))
-    return df
+    return df[['title', 'artist', 'label', 'lyrics']]
 
 def get_test_lyrics():
     root_path = os.path.dirname(os.path.dirname(__file__))
@@ -33,7 +21,9 @@ def get_test_lyrics():
     df = pd.read_csv(os.path.join(data_path, "hsa_labeled_lyrics.csv"))
     return df
 
+
 def clean(text, rem_punc=False):
+    """Preprocess input text"""
     # lowercase
     new_text = text.lower()
 
@@ -45,8 +35,8 @@ def clean(text, rem_punc=False):
     new_text = re.sub(r'https:\S+', '', new_text)
 
     # lyrics - specific
-    new_text = new_text.replace('\n\n', '.').replace('\n', ', ').replace(
-        r"\[[^]]*\]",' ')
+    new_text = new_text.replace('\n\n', '. ').replace('\n', ', ')
+    new_text = re.sub(r"\[[^]]*\]", ' ', new_text)
 
     # remove punctuation OPTIONAL
     if rem_punc:
@@ -57,19 +47,3 @@ def clean(text, rem_punc=False):
     new_text = ''.join(word for word in new_text if not word.isdigit())
 
     return new_text
-
-def remove_stopwords(text):
-    word_list = [
-        word for word in word_tokenize(text) if not word in stop_words
-    ]
-    return ' '.join(word_list)
-
-
-def lemma_text(text):
-    lemmatizer = WordNetLemmatizer()
-    lemmatized = [lemmatizer.lemmatize(word) for word in word_tokenize(text)]
-    return ' '.join(lemmatized)
-
-# Possibly remove single letter words
-def clean_length(text):
-    return [word for word in text if len(word) > 2]
