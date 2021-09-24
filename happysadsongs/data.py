@@ -7,7 +7,7 @@ def get_training_data():
     root_path = os.path.dirname(os.path.dirname(__file__))
     data_path = os.path.join(root_path,'raw_data')
     df = pd.read_csv(os.path.join(data_path, 'balanced_hsa_dataset.csv'))
-    return df[['text','word_label']]
+    return df[['text','word_label','source']]
 
 def get_lyrics_data():
     root_path = os.path.dirname(os.path.dirname(__file__))
