@@ -1,74 +1,22 @@
-# Data analysis
-- Document here the project: happysadsongs
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# Project Background
+- Title: happysadsongs
+- Description: modeling to predict whether song lyrics are happy or sad/angry
+- After testing various models, we deployed a RoBERTa model fine-tuned on our training data to a web app. For that deployment, see [/happysadsongs-frontend-2] (./happysadsongs-frontend-2) 
 
-Please document the project the better you can.
+# Data Sources
+- Training Data Source: 
+  Compiled labeled happy, sad, and angry texts from several sources: 
+    - [Hugging Face Emotion] (https://github.com/huggingface/datasets/blob/master/datasets/emotion/README.md)
+    - [Google Go Emotions] (https://github.com/google-research/google-research/tree/master/goemotions)
+    - [Crowdflower - Emotion in Text] (https://data.world/crowdflower/sentiment-analysis-in-text)
+    - [MELD Emotion Lines] (https://affective-meld.github.io/)
+    - 
+- Test Data Source:
+    - Compiled list of 260 songs based on web research (searching for lists of 50 saddest songs, 20 angriest songs, 100 happiest songs, etc.) 
+    - Pulled lyrics from Genius API, MusixMatch API 
 
-# Startup the project
+# Data Cleaning & Analysis
 
-The initial setup.
+# Modeling
 
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
 
-Unittest test:
-```bash
-make clean install test
-```
-
-Check for happysadsongs in gitlab.com/{group}.
-If your project is not set please add it:
-
-- Create a new project on `gitlab.com/{group}/happysadsongs`
-- Then populate it:
-
-```bash
-##   e.g. if group is "{group}" and project_name is "happysadsongs"
-git remote add origin git@github.com:{group}/happysadsongs.git
-git push -u origin master
-git push -u origin --tags
-```
-
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-happysadsongs-run
-```
-
-# Install
-
-Go to `https://github.com/{group}/happysadsongs` to see the project, manage issues,
-setup you ssh public key, ...
-
-Create a python3 virtualenv and activate it:
-
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
-
-Clone the project and install it:
-
-```bash
-git clone git@github.com:{group}/happysadsongs.git
-cd happysadsongs
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-happysadsongs-run
-```
