@@ -5,20 +5,20 @@
 
 ## Data Sources
 ### Training Data Source: 
-  Compiled labeled happy, sad, and angry texts from several sources: 
-    - [Hugging Face Emotion](https://github.com/huggingface/datasets/blob/master/datasets/emotion/README.md)
-    - [Google Go Emotions](https://github.com/google-research/google-research/tree/master/goemotions)
-    - [Crowdflower - Emotion in Text](https://data.world/crowdflower/sentiment-analysis-in-text)
-    - [MELD Emotion Lines](https://affective-meld.github.io/)
-    - [SemEval-2018](https://www.kaggle.com/context/semeval-2018-task-ec?select=2018-E-c-En-train.txt)
-  
-  From these sources we randomly selected observations to create the following more or less balanced set:
-    - happy    14529
-    - sad      14000
-    - angry    13956
+Compiled labeled happy, sad, and angry texts from several sources: 
+- [Hugging Face Emotion](https://github.com/huggingface/datasets/blob/master/datasets/emotion/README.md)
+- [Google Go Emotions](https://github.com/google-research/google-research/tree/master/goemotions)
+- [Crowdflower - Emotion in Text](https://data.world/crowdflower/sentiment-analysis-in-text)
+- [MELD Emotion Lines](https://affective-meld.github.io/)
+- [SemEval-2018](https://www.kaggle.com/context/semeval-2018-task-ec?select=2018-E-c-En-train.txt)
+
+From these sources we randomly selected observations to create the following more or less balanced set:
+- happy    14529
+- sad      14000
+- angry    13956
 ### Test Data Source:
-    - Compiled list of 260 songs based on web research (searching for lists of 50 saddest songs, 20 angriest songs, 100 happiest songs, etc.) 
-    - Pulled lyrics from Genius API, MusixMatch API 
+- Compiled list of 260 songs based on web research (searching for lists of 50 saddest songs, 20 angriest songs, 100 happiest songs, etc.) 
+- Pulled lyrics from Genius API, MusixMatch API 
 
 ## Data Cleaning & Analysis
 
