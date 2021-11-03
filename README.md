@@ -21,9 +21,28 @@ From these sources we randomly selected observations to create the following mor
 - Compiled list of 260 songs based on web research (searching for lists of 50 saddest songs, 20 angriest songs, 100 happiest songs, etc.) 
 - Pulled lyrics from Genius API, MusixMatch API 
 
-## Data Cleaning & Analysis
-
 ## Modeling
+After much trial and error of basic machine learning and deep learning models, our final deployed model was a RoBERTa ClassificationModel using the [simpletransformers](https://github.com/ThilinaRajapakse/simpletransformers) library. We fine-tuned the pretrained RoBERTa base model using our training dataset. 
+
+Ultimately, we switched from a 3-class classification to a binary classification of happy or sad/angry (balancing the fine-tuning dataset accordingly). 
+
+### Testing
+We tested our model by running it on our 260 song test set. The model runs over overlapping 20-word segments of each song lyric. We then took the mode of the results to classify the entire song lyric as either happy or sad/angry. If a song is bimodal, we default to sad/angry classification because we wanted to be more conservative about happy song classification. 
+
+### Baseline Accuracy Scoring
+On a binary classifation (happy vs sad/angry), Zero-Rate baseline was 59%. Random Rate (weighted guess) baseline was 52%.
+
+### Model Performance
+On our test set, we achieved the following overall performance metrics:
+- Accuracy: 83.1%
+- Precision: 83.7%
+- Recall: 83.1%
+- Weighted f1-score: .826
+
+Of note, the model has a higher precision score for happy and higher recall score for angry/sad. This aligns with our overall goal of not providing false positives for happy songs. (We wouldn't want to tell someone everything is great based on their recent playlist if, in fact, many of the songs were very sad or angry). 
+
+## Application & Deployment
+We containerized our model with Docker and uploaded it to Google Cloud Registry. We deploy the model with Google Cloud Run and developed a user-facing web app, see [happysadsongs](https://happysadsongs.herokuapp.com/) and [happysadsongs-frontend-2 repo](../../../happysadsongs-frontend-2). 
 
 ## Next Steps
 There are several areas for further exploration and improvement.
